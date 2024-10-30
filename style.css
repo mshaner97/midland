@@ -1,0 +1,24 @@
+body {
+    background-color: pink;
+
+}
+h1 {
+    text-align: center;
+}
+h2 {
+    text-align: center;
+}
+.clownimage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.listone {
+    text-align: left;
+    font-style: italic;
+}
+.listtwo {
+    text-align: right;
+    font-style: italic;
+}
