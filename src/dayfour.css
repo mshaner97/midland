@@ -1,0 +1,23 @@
+header {
+    display: flex;
+    color: white;
+    text-shadow: 2px 2px black;
+    background-color: grey;
+    height: 50px;
+    justify-content: right;
+    align-items: center;
+    padding: 5px;
+    font-size: 25;
+}
+.tab{
+    display: inline-flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    color: black;
+    padding: 5px;
+}
+.tab:hover, .tab:visited {
+    background-color: gray;
+}
