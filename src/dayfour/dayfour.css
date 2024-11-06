@@ -9,15 +9,41 @@ header {
     padding: 5px;
     font-size: 25;
 }
-.tab{
+.faketabs {
     display: inline-flex;
-    flex-flow: row;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+
+}
+.tab{
+    flex-basis: 100%;
+    flex-wrap: wrap;
     background-color: lightgray;
     color: black;
     padding: 5px;
+    margin: 5px;
 }
-.tab:hover, .tab:visited {
-    background-color: gray;
+.listbox {
+    display: inline-flex;
+    width: 50%;
+    flex-wrap: wrap;
+    color: black;
+    background-color: pink;
+    margin: 5px;
+    padding: 5px;
+    font-size: 20px;
+
+}
+.boxes {
+    display: inline-flex;
+    width: 50%;
+    flex-wrap: wrap;
+    padding: 5px;
+    margin: 5px;
+}
+.fish{
+    display: inline-flex;
+    flex-basis: 100%;
+    background-color: hotpink;
+    margin: 5px;
+    padding: 5px;
 }
