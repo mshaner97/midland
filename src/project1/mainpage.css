@@ -1,0 +1,97 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.pinkcontainer{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    background-color: hotpink;
+    width: 69%;
+    margin: 4px;
+    padding: 10px;
+}
+.pinkbox{
+    display: flex;
+    color: black;
+    background-color: pink;
+    padding: 10px;
+    margin: 10px;
+    width: calc(30%);
+    box-sizing: border-box;
+}
+.tealcontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: teal;
+    width: 30%;
+    margin: 4px;
+}
+.tealbox{
+    display: inline-flex;
+    color: black;
+    background-color: cyan;
+    padding: 10px;
+    margin: 10px;
+    height: 50px;
+}
+.linkcontainer{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: gold;
+    width: 100%;
+}
+.linkbox{
+    display: inline-flex;
+    color: black;
+    background-color: lightgoldenrodyellow;
+    width: 30%;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+}
+.linkbox:hover{
+    background-color: white;
+}
+footer{
+    color: white;
+    background-color: black;
+    text-align: center;
+    font-family: fantasy;
+    font-size: 30px;
+}
+.sidecolumn{
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    width: 20%;
+}
+.box{
+    justify-content: left;
+    background-color: lightgreen;
+    padding: 10px;
+    margin: 10px;
+}
+.salecontainer{
+    display: flex;
+    flex-flow: row;
+    background-color: orangered;
+    padding: 10px;
+    margin: 10px;
+}
+.salebox{
+    background-color: orange;
+    padding: 10px;
+    margin: 10px;
+}
+.salewrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
