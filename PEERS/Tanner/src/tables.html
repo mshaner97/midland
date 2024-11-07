@@ -1,0 +1,94 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tables Assignment</title>
+  <link rel="stylesheet" href='./tables.css'>
+  <style>
+    * {
+      font-family: monospace
+    }
+    table {
+      display: flex;
+      width: 100%;
+      box-sizing: border-box;
+      border: 10px solid rgb(105, 146, 105);
+    }
+    th {
+      width: 15vw;
+      font-weight: bold;
+      background-color: whitesmoke;
+      height: 5vh;
+    }
+    td {
+      border: 1px solid black;
+      height: 5vh;
+      text-align: center;
+      background-color: lightcoral;
+    }
+    .marginalized {
+      margin: 100px;
+      border: 5px solid grey;
+      padding: 20px;
+      gap: 20px;
+    }
+    .flex-column {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-footer {
+      text-align: center;
+      font-size: 2em;
+      background-color: black;
+      color: white;
+      padding: 10px;
+    }
+    .bottom {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-footer">Header</div>
+  <table>
+    <tr>
+      <th></th>
+      <th>Sunday</th>
+      <th>Monday</th>
+      <th>Tuesday</th>
+      <th>Wednesday</th>
+      <th>Thursday</th>
+      <th>Friday</th>
+      <th>Saturday</th>
+    </tr>
+    <tr>
+      <th>Morning</th>
+      <td>Breakfast</td>
+      <td rowspan="3" colspan="3">Really... Big... Meal</td>
+      <td colspan="3" rowspan="3">Starvation</td>
+    </tr>
+    <tr>
+      <th>Afternoon</th>
+      <td>Lunch</td>
+    </tr>
+    <tr>
+      <th>Evening</th>
+      <td>Dinner</td>
+    </tr>
+  </table>
+  <form class="marginalized flex-column">
+    <label htmlFor="name">Name:
+      <input type="text" name="name" placeholder="Name">
+    </label>
+    <label htmlFor="email">Email:
+      <input type="email" name="email" placeholder="Email">
+    </label>
+    <label type="number' htmlFor="age">Age:
+      <input type="number" name="age" placeholder="Age">
+    </label>
+  </form>
+  <div class="header-footer bottom">Footer</div>
+</body>
+</html>
