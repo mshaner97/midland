@@ -42,19 +42,31 @@
 .linkcontainer{
     display: inline-flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: gold;
     width: 100%;
-}
-.linkbox{
-    display: inline-flex;
+    padding: 20px;
+    gap: 20px;
     color: black;
-    background-color: lightgoldenrodyellow;
-    width: 30%;
-    justify-content: center;
-    padding: 10px;
-    margin: 10px;
+
 }
+.linkcontainer a {
+    flex: 1;
+    background-color: gold;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.linkcontainer a:hover {
+    background-color: lightgoldenrodyellow;
+    color: black;
+}
+
 .linkbox:hover{
     background-color: white;
 }
@@ -65,6 +77,8 @@ footer{
     font-family: fantasy;
     font-size: 30px;
 }
+<!--PAGE TWO CSS STARTS HERE-->
+
 .sidecolumn{
     display: flex;
     flex-direction: column;
@@ -79,15 +93,26 @@ footer{
 }
 .salecontainer{
     display: flex;
-    flex-flow: row;
+    justify-content: space-center;
+    flex-wrap: wrap;
+    gap: 20px;
     background-color: orangered;
     padding: 10px;
     margin: 10px;
+    max-width: 1200px;
 }
 .salebox{
+    flex: 0 1 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #ddd;
+    border-radius: 8px;
     background-color: orange;
     padding: 10px;
     margin: 10px;
+    object-fit: scale-down;
 }
 .salewrapper{
     display: flex;
