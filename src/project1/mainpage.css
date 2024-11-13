@@ -53,7 +53,6 @@
 .linkcontainer a {
     flex: 1;
     background-color: gold;
-    color: white;
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -67,9 +66,6 @@
     color: black;
 }
 
-.linkbox:hover{
-    background-color: white;
-}
 footer{
     color: white;
     background-color: black;
@@ -119,4 +115,11 @@ footer{
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
+}
+.salebox img {
+    transition: transform 0.2s;
+}
+.salebox img:hover {
+    transform: scale(1.5);
+    z-index: 1;
 }
