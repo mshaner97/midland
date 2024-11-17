@@ -3,7 +3,7 @@
     <link rel="stylesheet" href="mainpage.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Contact Me</title>
 </head>
 <body>
 
@@ -20,7 +20,24 @@
     </div>
 
     <br>
-
+<div class="formbox">
+    <style>
+        .formbox {
+            background-color: pink;
+            padding: 20px;
+            border: 4px solid hotpink;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .formbox input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 5px;
+}
+        .formbox input[type="submit"] {
+            align-items: right;
+        }
+    </style>
     <form>
         <label for="name">Name:</label>
         <br>
@@ -36,19 +53,28 @@
         <br>
 
         <div class="messagebox">
-            <label for="message">Message:</label>
+            <label for="message">Message:</label><br>
+            <textarea rows="5" maxlength="700" id="message" name="message"></textarea>
             <br>
-            <textarea rows="5" cols="50" maxlength="500" id="message" name="message"></textarea>
         </div>
     <br>
-    <input type="radio" id="business" name="interactiontype" value="business">
-    <label for="business">Business</label>
-    <input type="radio" id="casual" name="interationtype" value="casual">
-    <label for="casual">Casual</label>
+    <input type="radio" id="suggestion" name="interactiontype" value="suggestion">
+    <label for="suggestion">Suggestion</label>
+    <input type="radio" id="question" name="interationtype" value="question">
+    <label for="question">Question</label>
     <input type="radio" id="complaint" name="interactiontype" value="complaint">
     <label for="complaint">Complaint</label>
+    <br>
+    <div style="text-align: right;">
+        <input type="submit" value="Submit">
+    </div>
       </form>
+    </div>
       <br>
-    <footer>*~~~!text goes here for the footer woot woot!~~~*</footer>
+      <footer>
+        <img src="star.png" alt="star" height="75px" width="75px">
+        Maggie's Random Emporium!
+        <img src="star2.png" alt="star" height="75px" width="75px">
+    </footer>
 </body>
 </html>
