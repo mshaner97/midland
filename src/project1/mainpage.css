@@ -7,7 +7,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    background-color: hotpink;
+    background-color:#F294B0;
     width: 69%;
     margin: 4px;
     padding: 10px;
@@ -16,7 +16,7 @@
 .pinkbox {
     display: flex;
     color: black;
-    background-color: pink;
+    background-color: #f8c1d2;
     padding: 10px;
     width: calc(33.333% - 20px);
     min-width: 200px;
@@ -30,14 +30,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: teal;
+    background-color: #50cbea;
     width: 100%;
     margin: 4px;
 }
 .tealbox{
     display: inline-flex;
     color: black;
-    background-color: cyan;
+    background-color:#94dff2;
     padding: 10px;
     margin: 10px;
     height: 50px;
@@ -46,7 +46,7 @@
     font-size: 20px;
 }
 .tealbox:hover{
-    background-color: darkturquoise;
+    background-color:#c1edf8;
 }
 .linkcontainer{
     flex-direction: row;
@@ -93,7 +93,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background-color: goldenrod !important;
+    background-color: #FCF55F !important;
 }
 .linkcontainer a {
     flex: 1;
@@ -110,7 +110,7 @@
     }
 
 .linkcontainer a:hover {
-    background-color: lightgoldenrodyellow;
+    background-color: #FFFAA0;
     color: black;
 }
 
@@ -120,30 +120,38 @@ footer{
     text-align: center;
     font-family: fantasy;
     font-size: 20px;
+    margin: 15px;
 }
+.phone {
+    font-size: 14px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
 <!--PAGE TWO CSS STARTS HERE-->
 
-.sidecolumn{
+.sidecolumn {
     display: flex;
     flex-direction: column;
-    background-color: green;
-    width: 20%;
+    background-color: white;
+    width: 300px;
+    flex: 0 0 300px;
 }
-.box{
+.box {
     justify-content: left;
-    background-color: lightgreen;
+    background-color: #94dff2;
     padding: 10px;
     margin: 10px;
+    width: calc(100% - 20px);
 }
-.salecontainer{
+.salecontainer {
     display: flex;
-    justify-content: space-center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 20px;
-    background-color: orangered;
+    background-color: #F294B0;
     padding: 10px;
     margin: 10px;
-    max-width: 1200px;
+    flex: 1;
 }
 .salebox{
     flex: 0 1 200px;
@@ -153,15 +161,17 @@ footer{
     text-align: center;
     border: 2px solid #ddd;
     border-radius: 8px;
-    background-color: orange;
+    background-color: #f8c1d2;
+
     padding: 10px;
     margin: 10px;
     object-fit: scale-down;
 }
-.salewrapper{
+.salewrapper {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 20px;
     width: 100%;
 }
 .salebox img {
