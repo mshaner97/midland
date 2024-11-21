@@ -1,0 +1,30 @@
+.mydivlinks {
+    padding: 20px;
+    background-color: rgb(6, 56, 69);
+    color: white;
+    text-align: center;
+    font-size: auto
+    
+
+}
+button:focus {
+    background: red;
+}
+header {
+    font-size: 40px;
+    color: aquamarine;
+    background-color: grey;
+    text-align: right;
+
+
+}
+footer {
+    font-size: 40px;
+    color: blueviolet;
+    background-color: white;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    
+    
+}

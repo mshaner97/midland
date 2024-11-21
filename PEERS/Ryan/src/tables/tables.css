@@ -1,0 +1,46 @@
+header, footer  {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+
+}
+
+.main-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.green-container {
+    display: flex;
+    flex-basis: 70%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+}
+.green-box {
+    flex-basis: 30%;
+    background-color: rgb(30, 84, 19);
+    width: 10px;
+    height: 45%;
+}
+
+.red-container {
+    display: flex;
+    flex-basis: 30%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.red-box {
+    margin: 2px;
+    background: red;
+    min-height: 100px;
+}
+*{
+    text-align: center;
+}

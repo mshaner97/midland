@@ -1,0 +1,46 @@
+header, footer{
+    color: aliceblue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: black;
+    text-align: center;
+    padding: 5px;
+}
+
+.main-container{
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+    /* background-color: */
+    margin: 5px;
+    padding:0px;
+
+}
+.pink-container{
+    display: flex;
+    flex-basis: 70%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-align: center;
+    
+}
+
+.pink-box{
+    margin: 2px;
+    background-color: pink;
+    flex-basis: 30%;
+}
+
+.green-container{
+    display: flex;
+    flex-basis: 30%;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.green-box{
+    background-color: greenyellow;
+    margin: 2px;
+    min-height: 100px;
+    text-align: center;
+
+}
