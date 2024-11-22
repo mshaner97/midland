@@ -9,7 +9,7 @@
     justify-content: flex-start;
     background-color:#F294B0;
     width: 69%;
-    margin: 4px;
+    margin: 0;
     padding: 10px;
     gap: 20px;
 }
@@ -162,7 +162,6 @@ footer{
     border: 2px solid #ddd;
     border-radius: 8px;
     background-color: #f8c1d2;
-
     padding: 10px;
     margin: 10px;
     object-fit: scale-down;

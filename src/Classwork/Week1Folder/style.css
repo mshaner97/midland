@@ -1,0 +1,38 @@
+body {
+    background-color: pink;
+
+}
+h1 {
+    text-align: center;
+}
+h2:hover{
+    font-size: 20px;
+    font-family:fantasy;
+    transform: scaleY(3);
+}
+
+h2 {
+    text-align: center;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.lists {
+    display: inline-flex;
+    list-style: inside;
+    text-align: left;
+    font-style: italic;
+    font-size: 20px;
+}
+
+.catphotos{
+    display: inline-flex;
+    justify-content: space-around;
+    margin-top: auto;
+    margin-left: auto;
+    width: 100%;
+}
