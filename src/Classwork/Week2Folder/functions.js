@@ -22,7 +22,21 @@ function pow (x, y) {
 //! Write a function that accepts an array of banned words and an array of words.
 //! If any of the banned words appear in the array of words, replace them with "REDACTED.
 
-function wordFilter (bannedWord, allOtherWords, unknownWords)
+const dirtyWords = ["poopoo", "stinky", "doodoo"];
+
+function bannedWords(bannedList, wordsToCheck) {
+    let wordArray = Array.isArray(wordsToCheck) ? wordsToCheck : [...wordsToCheck];
+    let result = [];
+    for (let i = 0; i < wordArray.length; i++) {
+        if (bannedList.includes(wordArray[i])) {
+            result.push("REDACTED");
+        } else {
+            result.push(wordArray[i]);
+        }
+    }
+    return result;
+}
+console.log(bannedWords(dirtyWords, ["nice", "smelly", "poopoo", "maggie"]));
 
 // -----------------------------------------------------------------
 //! Write a function to see if a pizza can be split evenly amongst a group of people.
@@ -31,10 +45,25 @@ function wordFilter (bannedWord, allOtherWords, unknownWords)
 //!   - If it cannot, say it cannot be split evenly and ALSO list how many people will go without an extra slice.
 //! Hint: use the modulo operator (%)
 
+
+function splitPizzaEvenly(x,y) {
+    if (x % y === 0) {
+    return x % y;
+}
+return console.log("Can't be split evenly", (y - (x % y)))
+}
+console.log(splitPizzaEvenly(13,6))
+
 // -----------------------------------------------------------------
 //! Write a function to see if a triangle is a right triangle.
 //! It's a right triangle if the square of the longest side (hypotenuse) is equal to the sum of the squares of the other sides.
 //! Assume that 'a' is the longest side for now, but think about how you might need to change it if we didn't know which one is the hypotenuse.
+
+function rightTriangle(a, b, c) {
+    return (a * a) + (b * b) === (c * c);
+
+}
+console.log(rightTriangle(3, 4, 5));
 
 // -----------------------------------------------------------------
 //! Write a function to check to see if a warrior can beat all of the monsters in a dungeon.
