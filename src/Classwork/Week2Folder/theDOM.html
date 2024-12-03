@@ -65,8 +65,8 @@
       //!    8. Take the div with `#div10` and reduce the height and width to 42% of what it was
       //!       (without hard-coding the number) and then change the id to `div10New`
       const div10 = document.getElementById("#div10");
-        div10.style.width = "42%";
-        div10.style.height = "42%";
+        div10.style.width = iddiv10.clientHeight * 0.42 + 'px';
+        div10.style.height = iddiv10.clientWidth * 0.42 + 'px';
         div10.id = "div10New";
     </script>
   </body>
