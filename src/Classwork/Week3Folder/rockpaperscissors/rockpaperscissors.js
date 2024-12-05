@@ -27,16 +27,16 @@ if (playerChoice === computerChoice)
     console.log("TIE")
 //player choice 0
 else if (playerChoice === 'rock' && computerChoice === 'paper')
-    console.log("COMPUTER WON")
+    console.log("COMPUTER WON");
 else if (playerChoice === 'rock' && computerChoice === 'scissors')
-    console.log("PLAYER WON")
+    console.log("PLAYER WON");
 //player choice 1
 else if (playerChoice === 'paper' && computerChoice === 'rock')
-    console.log("PLAYER WON")
+    console.log("PLAYER WON");
 else if (playerChoice === 'paper' && computerChoice === 'scissors')
-    console.log("COMPUTER WON")
+    console.log("COMPUTER WON");
 //player choice 2
 else if (playerChoice === 'scissors' && computerChoice === 'rock')
-    console.log("COMPUTER WON")
+    console.log("COMPUTER WON");
 else if (playerChoice === 'scissors' && computerChoice === 'paper')
-    console.log("PLAYER WON")
+    console.log("PLAYER WON");
