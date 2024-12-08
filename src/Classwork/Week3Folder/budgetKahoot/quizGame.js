@@ -48,7 +48,28 @@ currentQuestionIndex++;
 if (currentQuestionIndex < quizQuestions.length) {
     loadQuestion();
 } else {
-    //END GAME CODE GOES HERE, DISPLAY SCORE?
+    endGame();
 }
 }
+
+function endGame() {
+const answerOptionsDiv = document.getElementById('answerOptions');
+answerOptionsDiv.innerHTML = `Game Over! Your score: ${score} out of ${quizQuestions.length}`;
+
+
+const restartButton = document.createElement('button');
+restartButton.textContent = 'Restart';
+restartButton.id = 'restartButton';
+restartButton.addEventListener('click', restartGame);
+
+document.getElementById('questionAndAnswerOptions').appendChild(restartButton);
+}
+
+function restartGame() {
+currentQuestionIndex = 0;
+score = 0;
+
+loadQuestion();
+}
+
 document.addEventListener('DOMContentLoaded', loadQuestion);
