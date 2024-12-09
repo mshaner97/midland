@@ -55,24 +55,16 @@ if (currentQuestionIndex < quizQuestions.length) {
 function endGame() {
     const answerOptionsDiv = document.getElementById('answerOptions');
     answerOptionsDiv.innerHTML = `Game Over! Your score: ${score} out of ${quizQuestions.length}`;
-    
-    const existingRestartButton = document.getElementById('restartButton');
-    if (existingRestartButton) {
-        existingRestartButton.remove();
-    }
-    
-    const restartButton = document.createElement('button');
-    restartButton.textContent = 'Restart';
-    restartButton.id = 'restartButton';
-    restartButton.addEventListener('click', restartGame);
-    document.getElementById('questionAndAnswerOptions').appendChild(restartButton);
 }
 
 function restartGame() {
-currentQuestionIndex = 0;
-score = 0;
-
-loadQuestion();
+    currentQuestionIndex = 0;
+    score = 0;
+    loadQuestion();
 }
 
-document.addEventListener('DOMContentLoaded', loadQuestion);
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('restartButton').addEventListener('click', restartGame);
+
+    loadQuestion();
+});
