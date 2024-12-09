@@ -4,11 +4,12 @@
     align-items: center;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 10px;
     max-width: 50%;
     height: 75px;
     font-size: 30px;
-    background-color: lightyellow;
-    border: 3px solid yellow;
+    background-color: pink;
+    border: 3px solid hotpink;
 }
 #answerOptions {
     display: flex;
@@ -27,4 +28,7 @@ button {
     border: 3px solid hotpink;
     height: 100px;
     width: 20%;
+  }
+  body {
+    background-color: paleturquoise;
   }
