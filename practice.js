@@ -11,12 +11,12 @@ let thirdArray = [...firstArray, ...secondArray]
 
 // 3. Using arrow functions, sort the newly copied array to appear in numerical order.
 
-const sortedNumbers = [...arr3].sort((a, b) => a - b);
+const sortedArray = [...thirdArray].sort((a, b) => a - b);
 
 // 4. Log both the original array and the sorted array to the console to make sure they appear correctly.
 
 console.log(thirdArray)
-console.log(sortedthirdArray)
+console.log(sortedArray)
 
 // ## Classes
 
