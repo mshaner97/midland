@@ -5,9 +5,10 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
-    max-width: 50%;
-    height: 75px;
+    max-width: 60%;
+    height: 80px;
     font-size: 30px;
+    text-align: center;
     background-color: pink;
     border: 3px solid hotpink;
 }
@@ -31,4 +32,28 @@ button {
   }
   body {
     background-color: paleturquoise;
+  }
+
+  #timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    border: 3px solid hotpink;
+    height: 40px;
+    width: 120px;
+    position: absolute;
+    right: 20px;
+    top: 363px;
+  }
+
+  #photobox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  img {
+    border: 3px solid hotpink;
+    height: 400px;
+    width: 500px;
   }
