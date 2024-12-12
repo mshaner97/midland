@@ -102,14 +102,34 @@ if (currentQuestionIndex < quizQuestions.length) {
 }
 }
 
-function displayPhoto(imagePath) {
+function addPhotosToDom(imagePath) {
     const imgElement = document.createElement('img');
     imgElement.src = imagePath;
     imgElement.alt = 'Quiz result photo';
+    imgElement.style.position = "absolute";
+    imgElement.style.top = 0;
+    imgElement.style.left = 0;
+    imgElement.style.opacity = 0;
+    imgElement.classList.add("resultPhotos");
     const container = document.getElementById('photobox');
-    container.innerHTML = '';
     container.appendChild(imgElement);
 }
+function getImage(src) {
+const images = Array.from(document.getElementsByClassName("resultPhotos"));
+console.log(images.length,src)
+const thisIsHowIWantYouToFindMyElement = (nextImage) => {
+    return nextImage.src.includes(src)
+}
+return images.find(thisIsHowIWantYouToFindMyElement)
+}
+function toggleImageVisability(src) {
+    const img = getImage(src)
+    img.style.opacity === 1 ? img.style.opacity = 0 : img.style.opacity = 1;
+}
+addPhotosToDom('images/badscore.jpeg')
+addPhotosToDom('images/halfright.jpeg')
+addPhotosToDom('images/okscore.jpeg')
+addPhotosToDom('images/perfectscore.png')
 
 function endGame() {
     const answerOptionsDiv = document.getElementById('answerOptions');
@@ -117,13 +137,13 @@ function endGame() {
     clearInterval(timerInterval);
 
 if(score === 0 || score === 1 || score === 2 || score === 3 || score === 4){
-    displayPhoto('images/badscore.jpeg');
+    toggleImageVisability('images/badscore.jpeg');
 } else if (score === 5) {
-    displayPhoto('images/halfright.jpeg');
+    toggleImageVisability('images/halfright.jpeg');
 } else if (score === 6 || score === 7 || score === 8) {
-    displayPhoto('images/okscore.jpeg');
+    toggleImageVisability('images/okscore.jpeg');
 } else if (score === 9 || score === 10){
-    displayPhoto('images/perfectscore.png');
+    toggleImageVisability('images/perfectscore.png');
 }
 }
 
