@@ -12,11 +12,12 @@
         <input type="text" id="searchInput" placeholder="Search movies">
         <button id="searchButton">Search</button>
         <div id="noResults"></div>
-        <div id="movieResults"></div>
     </div>
-    <br>
-    <div id="orBox">OR</div>
-    <br>
+    <div>
+        <input type="number" id="yearInput" placeholder="Year" min="1888" max="2024">
+        <button id="searchYear">Search</button>
+        <div id="noResults"></div>
+    </div>
     <div>
         <label for="genres">Choose a genre</label>
         <select name="genres" id="genres">
@@ -28,8 +29,8 @@
         </select>
     </div>
 </div>
-</div>
-<div id = resultBox></div>
+<br>
+<div id="movieResults"></div>
     <script src="movieDatabase.js"></script>
 </body>
 </html>
