@@ -1,0 +1,38 @@
+#cardBrick{
+display: flex;
+align-items: center;
+}
+#stockDeck{
+    display: inline-flex;
+    flex-direction: row;
+    height: 100px;
+    width: 20%;
+    border: 3px solid teal;
+    padding: 10px;
+}
+#wasteDeck{
+    display: inline-flex;
+    flex-direction: row;
+    height: 100px;
+    width: 20%;
+    border: 3px solid lime;
+    padding: 10px;
+}
+#cardSlots{
+    display: inline-flex;
+    flex-direction: row;
+    border: 3px solid yellow;
+    padding: 10px;
+    gap: 20px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+#slot{
+    display: inline-flex;
+    flex-direction: row;
+    border: 3px solid lightgoldenrodyellow;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+}
