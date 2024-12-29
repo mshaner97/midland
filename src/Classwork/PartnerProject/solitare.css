@@ -1,30 +1,28 @@
-#cardBrick{
-display: flex;
-align-items: center;
-}
-#stockDeck{
-    display: inline-flex;
+
+#topRow {
+    display: flex;
     flex-direction: row;
-    height: 100px;
-    width: 20%;
-    border: 3px solid teal;
-    padding: 10px;
+    align-items: center;
+    gap: 20px;
 }
-#wasteDeck{
-    display: inline-flex;
-    flex-direction: row;
-    height: 100px;
-    width: 20%;
-    border: 3px solid lime;
-    padding: 10px;
-}
-#cardSlots{
-    display: inline-flex;
+#bottomrow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    }
+#cardBrick {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+
+#tableau{
+    display: flex;
     flex-direction: row;
     border: 3px solid yellow;
     padding: 10px;
     gap: 20px;
-    width: 50%;
     align-items: center;
     justify-content: center;
 }
@@ -35,4 +33,99 @@ align-items: center;
     height: 50px;
     width: 50px;
     padding: 5px;
+}
+#suitDecks{
+    display: inline-flex;
+    flex-direction: row;
+    border: 3px solid yellow;
+    padding: 10px;
+    gap: 20px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+#suitdeck{
+    display: inline-flex;
+    flex-direction: row;
+    border: 3px solid lightgoldenrodyellow;
+    height: 50px;
+    width: 50px;
+    padding: 5px;
+}
+
+/*CARD FACES*/
+.card {
+    width: 80px;
+    height: 120px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #333;
+    position: relative;
+    display: inline-flex;
+    margin: 5px;
+    user-select: none;
+}
+.cardContent {
+
+}
+.card.hearts, .card.diamonds {
+    color: red;
+}
+.card.spades, .card.clubs {
+    color: black;
+}
+.card-value {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.top-value {
+    top: 5px;
+    left: 5px;
+}
+
+.bottom-value {
+    bottom: 5px;
+    right: 5px;
+    transform: rotate(180deg);
+}
+
+.center-suit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+}
+.card.facedown {
+    background: linear-gradient(135deg, #187d22 0%,#22b331 50%,#2ef742 51%,#b7f9be 100%);
+}
+.foundationDeck {
+    width: 82px;
+    height: 122px;
+    border: 2px dashed #fff;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.stockDeck {
+    width: 82px;
+    height: 122px;
+    border: 2px dashed #1db8b5;
+    border-radius: 8px;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 0 10px;
+}
+
+.wasteDeck {
+    width: 82px;
+    height: 122px;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 0 10px;
+    vertical-align: top;
+    border: 3px solid lime;
 }
