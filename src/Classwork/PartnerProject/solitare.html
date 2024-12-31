@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!--https://bicyclecards.com/how-to-play/solitaire-->
@@ -9,25 +10,24 @@
 <body>
 <div id = "cardBrick">
 <div id = "toprow">
-    <div id = "foundationDeck"></div>
-    <div id = "stockDeck">STOCK deck goes here</div>
-    <div id = "wasteDeck">WASTE deck goes here</div>
+    <div class = "stockDeck" id="stock">STOCK</div>
+    <div class = "wasteDeck" id="waste">WASTE</div>
     <div id = "suitDecks">
-        <div id = suitDeck>1</div>
-        <div id = suitDeck>2</div>
-        <div id = suitDeck>3</div>
-        <div id = suitDeck>4</div>
+        <div class = "foundationDeck" id="foundation-0"></div>
+        <div class = "foundationDeck" id="foundation-1"></div>
+        <div class = "foundationDeck" id="foundation-2"></div>
+        <div class = "foundationDeck" id="foundation-3"></div>
     </div>
 </div>
 <div id="bottomrow">
-    <div id = "tableau">
-        <div id = slot>1</div>
-        <div id = slot>2</div>
-        <div id = slot>3</div>
-        <div id = slot>4</div>
-        <div id = slot>5</div>
-        <div id = slot>6</div>
-        <div id = slot>7</div>
+    <div id="tableau">
+        <div class="tableau-pile" id="tableau-0"></div>
+        <div class="tableau-pile" id="tableau-1"></div>
+        <div class="tableau-pile" id="tableau-2"></div>
+        <div class="tableau-pile" id="tableau-3"></div>
+        <div class="tableau-pile" id="tableau-4"></div>
+        <div class="tableau-pile" id="tableau-5"></div>
+        <div class="tableau-pile" id="tableau-6"></div>
     </div>
 </div>
 </div>
