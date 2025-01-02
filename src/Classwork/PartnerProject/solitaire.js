@@ -83,8 +83,12 @@ function updateTableau(tableau) {
     tableau.forEach((pile, i) => {
         const pileElement = document.getElementById(`tableau-${i}`);
         pileElement.innerHTML = '';
-        pile.forEach(card => {
-            pileElement.appendChild(card.createCardElement());
+        pile.forEach((card, index) => {
+            const cardElement = card.createCardElement();
+            cardElement.style.position = 'absolute';
+            cardElement.style.top = `${index * 30}px`;
+            cardElement.style.left = '0px';
+            pileElement.appendChild(cardElement);
         });
     });
 }
@@ -130,9 +134,13 @@ function startGame() {
 
     return { tableau, stock, foundations, waste };
 }
-const game = startGame();
-updateGameBoard(game);
-console.log(game);
+function initGame() {
+    const game = startGame();
+    updateGameBoard(game);
+    console.log(game);
+    setupEventListeners(game);
+}
+document.addEventListener('DOMContentLoaded', initGame);
 // Check if card can be moved to the foundation
 function canMoveToFoundation(card, foundation) {
     if (foundation.length === 0) {
@@ -182,4 +190,40 @@ function drawCard(game) {
         game.stock.forEach(card => card.flip());
     }
     updateGameBoard(game);
+}
+// function for all event listeners
+function setupEventListeners(game) {
+    setupTableauListeners(game);
+    setupFoundationListeners(game);
+    setupStockListener(game);
+    setupWasteListener(game);
+}
+// event listeners for the tableau
+function setupTableauListeners(game) {
+    game.tableau.forEach((pile, i) => {
+        const pileElement = document.getElementById(`tableau-${i}`);
+        pileElement.addEventListener('click', (e) => {
+            const cardElement = e.target.closest('.card');
+            if (cardElement) {
+                const cardIndex =
+Array.from(pileElement.children).indexOf(cardElement);
+                handleTableauClick(game, i, cardIndex);
+            }
+        });
+    });
+}
+// event listeners for foundation piles
+function setupFoundationListeners(game) {
+    game.foundations.forEach((pile, i) => {
+        const pileElement = document.getElementById(`foundation-${i}`);
+        pileElement.addEventListener('click', () => {
+            handleFoundationClick(game, i);
+        });
+    });
+}
+function setupStockListener(game) {
+    const stockElement = document.getElementById('stock');
+    stockElement.addEventListener('click', () => {
+        drawCard(game);
+    });
 }
