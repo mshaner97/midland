@@ -97,6 +97,10 @@ body {
     margin: 5px;
     user-select: none;
     transition: all 0.3s ease;
+    cursor: move;
+}
+.card:active {
+    opacity: 0.8;
 }
 .cardContent {
  border:#187d22;
