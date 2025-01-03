@@ -21,6 +21,7 @@ class Card {
     createCardElement() {
         const card = document.createElement('div');
         card.className = `card ${this.suit}`;
+        card.draggable = true;
         
         if (this.faceUp) {
             card.innerHTML = `
@@ -33,8 +34,11 @@ class Card {
         } else {
             card.classList.add('facedown');
         }
-        
+        card.addEventListener('dragstart', this.dragStart.bind(this));
         return card;
+    }
+    dragStart(e) {
+        e.dataTransfer.setData('text/plain', JSON.stringify({suit: this.suit, value: this.value}));
     }
 }
 // Creating the deck of cards for array sorting
@@ -197,6 +201,25 @@ function setupEventListeners(game) {
     setupFoundationListeners(game);
     setupStockListener(game);
     setupWasteListener(game);
+    setupDropZones(game);
+}
+//setting up drop zones for cards
+function setupDropZones(game) {
+    const dropZones = document.querySelectorAll('.tableau-pile, .foundationDeck, #waste');
+    dropZones.forEach(zone=> {
+        zone.addEventListener('dragover',dragOver);
+        zone.addEventListener('drop', (e)=>dropZones(e, game));
+    });
+}
+function dragOver(e) {
+    e.preventDefault();
+}
+function drop(e, game) {
+    e.preventDefault();
+    const cardData= JSON.parse(e.dataTransfer.getData('text/plain'));
+    const card = new Card(cardData.suit, cardData.value);
+    const dropZone = e.target.closest('.tableau-pile, .foundationDeck, #waste');
+    updateGameBoard(game);
 }
 // event listeners for the tableau
 function setupTableauListeners(game) {
@@ -226,4 +249,18 @@ function setupStockListener(game) {
     stockElement.addEventListener('click', () => {
         drawCard(game);
     });
+}
+// Card click handlers
+function handleCardClick(event) {
+    const card = event.target;
+    const pile = card.closest('.pile');
+    const pileIndex = parseInt(pile.dataset.index);
+    const cardIndex = Array.from(pile.children).indexOf(card);
+    if (pile.classList.contains('tableau')){
+        handleTableauCardClick(pileIndex, cardIndex);
+    } else if (pile.classList.contains('foundation')){
+        handleFoundationClick(pileIndex);
+    } else if (pile.classList.contains('waste')) {
+        handleWasteCardClick();
+    }
 }
