@@ -1,8 +1,10 @@
+let game;
 class Card {
     constructor(suit, value) {
         this.suit = suit;
         this.value = value;
         this.faceUp = false;
+        this.id = `card-${suit}-${value}`;
     }
     flip() {
         this.faceUp = !this.faceUp;
@@ -22,6 +24,7 @@ class Card {
         const card = document.createElement('div');
         card.className = `card ${this.suit}`;
         card.draggable = true;
+        card.id = this.id;
         
         if (this.faceUp) {
             card.innerHTML = `
@@ -38,7 +41,11 @@ class Card {
         return card;
     }
     dragStart(e) {
-        e.dataTransfer.setData('text/plain', JSON.stringify({suit: this.suit, value: this.value}));
+        e.dataTransfer.setData('text/plain', JSON.stringify({
+            id: this.id,
+            suit: this.suit, 
+            value: this.value
+        }));
     }
 }
 // Creating the deck of cards for array sorting
@@ -125,7 +132,7 @@ function updateGameBoard(game) {
     updateFoundations(game.foundations);
     updateStock(game.stock);
     updateWaste(game.waste);
-}
+  }
 // Beginning the game
 function startGame() {
     const deck = new Deck().cards;
@@ -145,6 +152,48 @@ function initGame() {
     setupEventListeners(game);
 }
 document.addEventListener('DOMContentLoaded', initGame);
+//Check if valid move for drag/drop
+function isValidMove(cardData, dropZone, game) {
+    if (dropZone.classList.contains('foundationDeck')) {
+        const foundationIndex = parseInt(dropZone.id.split('-')[1]);
+        return canMoveToFoundation(cardData, game.foundations[foundationIndex]);
+    } else if (dropZone.classList.contains('tableau-pile')) {
+        const tableauIndex = parseInt(dropZone.id.split('-')[1]);
+        return canMoveToTableau(cardData, game.tableau[tableauIndex]);
+    }
+    return false;
+}
+//function to move the cards
+function performMove(cardData, dropZone, game) {
+    const sourceElement = document.getElementById(cardData.id);
+    const sourcePile = sourceElement.closest('.tableau-pile, .foundationDeck, #waste');
+
+//Remove the card from the source
+    if (sourcePile.classList.contains('tableau-pile')) {
+        const sourceIndex = parseInt(sourcePile.id.split('-')[1]);
+        const cardIndex = game.tableau[sourceIndex].findIndex(c => c.id === cardData.id);
+        game.tableau[sourceIndex].splice(cardIndex, 1);
+    } else if (sourcePile.id === 'waste') {
+        game.waste.pop();
+    }
+
+// Add the card to the target
+    if (dropZone.classList.contains('foundationDeck')) {
+        const foundationIndex = parseInt(dropZone.id.split('-')[1]);
+        game.foundations[foundationIndex].push(new Card(cardData.suit, cardData.value));
+    } else if (dropZone.classList.contains('tableau-pile')) {
+        const tableauIndex = parseInt(dropZone.id.split('-')[1]);
+        game.tableau[tableauIndex].push(new Card(cardData.suit, cardData.value));
+    }
+
+// Flip the top card of the deck
+    if (sourcePile.classList.contains('tableau-pile')) {
+        const sourceIndex = parseInt(sourcePile.id.split('-')[1]);
+        if (game.tableau[sourceIndex].length > 0) {
+            game.tableau[sourceIndex][game.tableau[sourceIndex].length - 1].flip();
+        }
+    }
+}
 // Check if card can be moved to the foundation
 function canMoveToFoundation(card, foundation) {
     if (foundation.length === 0) {
@@ -202,24 +251,46 @@ function setupEventListeners(game) {
     setupStockListener(game);
     setupWasteListener(game);
     setupDropZones(game);
+    document.getElementById('waste').addEventListener('click', () => handleWasteCardClick(game));
 }
 //setting up drop zones for cards
 function setupDropZones(game) {
-    const dropZones = document.querySelectorAll('.tableau-pile, .foundationDeck, #waste');
-    dropZones.forEach(zone=> {
-        zone.addEventListener('dragover',dragOver);
-        zone.addEventListener('drop', (e)=>dropZones(e, game));
+    const dropZones = document.querySelectorAll('.drop-zone');
+    dropZones.forEach(zone => {
+      zone.addEventListener('dragover', dragOver);
+      zone.addEventListener('drop', (e) => drop(e, game));
+      console.log(`Drop listener added to: ${zone.id}`);
     });
-}
+  }
 function dragOver(e) {
     e.preventDefault();
+    e.currentTarget.classList.add('drag-over');
+    console.log('Dragover event fired');
+}
+function dragLeave(e) {
+    e.currentTarget.classList.remove('drag-over');
 }
 function drop(e, game) {
     e.preventDefault();
-    const cardData= JSON.parse(e.dataTransfer.getData('text/plain'));
-    const card = new Card(cardData.suit, cardData.value);
+    console.log('Drop event fired');
+    const cardData = JSON.parse(e.dataTransfer.getData('text/plain'));
+    console.log('Card data:', cardData);
+
+    const sourceElement = document.getElementById(cardData.id);
     const dropZone = e.target.closest('.tableau-pile, .foundationDeck, #waste');
-    updateGameBoard(game);
+
+    if (sourceElement && dropZone) {
+        if (isValidMove(cardData, dropZone, game)) {
+            performMove(cardData, dropZone, game);
+            updateGameBoard(game);
+        } else {
+            console.log('Invalid move');
+        }
+    }
+}
+function makeCardDraggable(cardElement) {
+    cardElement.setAttribute('draggable', 'true');
+    cardElement.addEventListener('dragstart', dragStart);
 }
 // event listeners for the tableau
 function setupTableauListeners(game) {
@@ -230,7 +301,7 @@ function setupTableauListeners(game) {
             if (cardElement) {
                 const cardIndex =
 Array.from(pileElement.children).indexOf(cardElement);
-                handleTableauClick(game, i, cardIndex);
+                handleTableauCardClick(game, i, cardIndex);
             }
         });
     });
@@ -262,5 +333,77 @@ function handleCardClick(event) {
         handleFoundationClick(pileIndex);
     } else if (pile.classList.contains('waste')) {
         handleWasteCardClick();
+    }
+}
+//Stock click event to decide what happens when attempting to draw cards
+function handleStockClick() {
+    if (game.stock.length > 0) {
+        drawCard(game);
+    } else {
+        resetStock(game);
+    }
+    updateGameBoard(game);
+}
+function handleTableauCardClick(game, pileIndex, cardIndex) {
+    const pile = game.tableau[pileIndex];
+    const card = pile[cardIndex];
+    
+    if (!card.faceUp) {
+      if (cardIndex === pile.length - 1) {
+        card.flip();
+      }
+    } else {
+      // Try to move to foundation
+      for (let i = 0; i < game.foundations.length; i++) {
+        if (canMoveToFoundation(card, game.foundations[i])) {
+          moveCard(pile, game.foundations[i], cardIndex);
+          break;
+        }
+      }
+      
+      // Try to move to another tableau pile
+      for (let i = 0; i < game.tableau.length; i++) {
+        if (i !== pileIndex && canMoveToTableau(card, game.tableau[i])) {
+          moveCard(pile, game.tableau[i], cardIndex);
+          break;
+        }
+      }
+    }
+    
+    updateGameBoard(game);
+    checkWinCondition(game);
+  }
+function handleFoundationCardClick(pileIndex) {
+    const foundation = game.foundations[pileIndex];
+    if (foundation.length > 0) {
+        const card = foundation[foundation.length - 1];
+        for (let i = 0; i < game.tableau.length; i++) {
+            if (canMoveToTableau(card, game.tableau[i])) {
+                moveCard(foundation, game.tableau[i], foundation.length -1);
+                updateGameBoard(game);
+                break;
+            }
+        }
+    }
+}
+function handleWasteCardClick() {
+    if (game.waste.length > 0) {
+        const card = game.waste[game.waste.length - 1];
+        for (let i = 0; i < game.foundations.length; i++) {
+            if (canMoveToFoundation(card, game.foundations[i])) {
+                moveCard (game.waste, game.foundations[i], game.waste.length - 1);
+                updateGameBoard(game);
+                checkWinCondition(game);
+                return;
+            }
+        }
+        // Tableau movement for waste pile
+        for (let i = 0; i < game.tableau.length; i++) {
+            if (canMoveToTableau(card, game.tableau[i])) {
+                moveCard(game.waste, game.tableau[i], game.waste.length - 1);
+                updateGameBoard(game);
+                return;
+            }
+        }
     }
 }
