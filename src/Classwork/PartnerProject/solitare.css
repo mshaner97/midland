@@ -23,7 +23,7 @@ body {
 #topRow {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 20px;
     width: 100%;
@@ -51,6 +51,7 @@ body {
     flex-direction: column;
     gap: 5px;
     min-height: 122px;
+    overflow: visible;
     }
 .tableau-pile .card {
     position: absolute;
@@ -82,11 +83,13 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 122px;
+    position: relative;
 }
 .foundationDeck .card {
     position: absolute;
     top: 0;
     left: 0;
+    margin: 0;
 }
 
 /*CARD FACES*/
@@ -102,6 +105,7 @@ body {
     user-select: none;
     transition: all 0.3s ease;
     cursor: move;
+    z-index: 10;
 }
 .card:active {
     opacity: 0.8;

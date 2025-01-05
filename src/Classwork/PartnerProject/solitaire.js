@@ -1,4 +1,9 @@
-let game;
+let game = {
+    tableau: [],
+    foundations: [],
+    stock: [],
+    waste: []
+};
 class Card {
     constructor(suit, value) {
         this.suit = suit;
@@ -25,7 +30,7 @@ class Card {
         card.className = `card ${this.suit}`;
         card.draggable = true;
         card.id = this.id;
-        
+
         if (this.faceUp) {
             card.innerHTML = `
                 <div class="cardContent">
@@ -41,11 +46,12 @@ class Card {
         return card;
     }
     dragStart(e) {
-        e.dataTransfer.setData('text/plain', JSON.stringify({
+        const cardData= {
             id: this.id,
-            suit: this.suit, 
+            suit: this.suit,
             value: this.value
-        }));
+        };
+        e.dataTransfer.setData('text/plain', JSON.stringify(cardData));
     }
 }
 // Creating the deck of cards for array sorting
@@ -57,7 +63,7 @@ class Deck {
     const suits = ['hearts', 'diamonds', 'clubs', 'spades'];
     const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     const deck = [];
-    
+
     for (let suit of suits) {
         for (let value of values) {
             deck.push(new Card(suit, value));
@@ -146,10 +152,16 @@ function startGame() {
     return { tableau, stock, foundations, waste };
 }
 function initGame() {
-    const game = startGame();
+    game = startGame();
     updateGameBoard(game);
     console.log(game);
     setupEventListeners(game);
+}
+function checkWinCondition(game) {
+    const isComplete = game.foundations.every(foundation => foundation.length === 13);
+    if (isComplete) {
+        alert('Lo hicimos, adaddadadada')
+    }
 }
 document.addEventListener('DOMContentLoaded', initGame);
 //Check if valid move for drag/drop
@@ -166,33 +178,53 @@ function isValidMove(cardData, dropZone, game) {
 //function to move the cards
 function performMove(cardData, dropZone, game) {
     const sourceElement = document.getElementById(cardData.id);
+    if (!sourceElement) {
+        console.log('Source element not found');
+        return;
+    }
     const sourcePile = sourceElement.closest('.tableau-pile, .foundationDeck, #waste');
+    if (!sourcePile) {
+        console.log('Source pile not found');
+        return;
+    }
 
-//Remove the card from the source
+    // Remove the card from the source
     if (sourcePile.classList.contains('tableau-pile')) {
         const sourceIndex = parseInt(sourcePile.id.split('-')[1]);
         const cardIndex = game.tableau[sourceIndex].findIndex(c => c.id === cardData.id);
-        game.tableau[sourceIndex].splice(cardIndex, 1);
+        if (cardIndex !== -1) {
+            game.tableau[sourceIndex].splice(cardIndex, 1);
+        }
     } else if (sourcePile.id === 'waste') {
         game.waste.pop();
     }
 
-// Add the card to the target
+    // Add the card to the target
     if (dropZone.classList.contains('foundationDeck')) {
         const foundationIndex = parseInt(dropZone.id.split('-')[1]);
-        game.foundations[foundationIndex].push(new Card(cardData.suit, cardData.value));
+        // Create a new Card instance instead of using raw cardData
+        const newCard = new Card(cardData.suit, cardData.value);
+        newCard.faceUp = true;
+        game.foundations[foundationIndex].push(newCard);
     } else if (dropZone.classList.contains('tableau-pile')) {
         const tableauIndex = parseInt(dropZone.id.split('-')[1]);
-        game.tableau[tableauIndex].push(new Card(cardData.suit, cardData.value));
+        // Create a new Card instance instead of using raw cardData
+        const newCard = new Card(cardData.suit, cardData.value);
+        newCard.faceUp = true;
+        game.tableau[tableauIndex].push(newCard);
     }
 
-// Flip the top card of the deck
+    // Flip the top card of the source tableau pile if needed
     if (sourcePile.classList.contains('tableau-pile')) {
         const sourceIndex = parseInt(sourcePile.id.split('-')[1]);
         if (game.tableau[sourceIndex].length > 0) {
             game.tableau[sourceIndex][game.tableau[sourceIndex].length - 1].flip();
         }
     }
+
+    // Update the game board
+    updateGameBoard(game);
+    checkWinCondition(game);
 }
 // Check if card can be moved to the foundation
 function canMoveToFoundation(card, foundation) {
@@ -225,7 +257,7 @@ function canMoveToTableau(card, tableauPile) {
 function moveCard(fromPile, toPile, cardIndex) {
     const movedCards = fromPile.splice(cardIndex);
     toPile.push(...movedCards);
-    
+
     if (fromPile.length > 0 && !fromPile[fromPile.length - 1].faceUp) {
         fromPile[fromPile.length - 1].flip();
     }
@@ -321,6 +353,14 @@ function setupStockListener(game) {
         drawCard(game);
     });
 }
+function setupWasteListener(game) {
+    const wasteElement = document.getElementById('waste');
+    wasteElement.addEventListener('click', () => {
+        if (game.waste.length > 0) {
+            handleWasteCardClick(game);
+        }
+    });
+}
 // Card click handlers
 function handleCardClick(event) {
     const card = event.target;
@@ -347,39 +387,53 @@ function handleStockClick() {
 function handleTableauCardClick(game, pileIndex, cardIndex) {
     const pile = game.tableau[pileIndex];
     const card = pile[cardIndex];
-    
+
     if (!card.faceUp) {
-      if (cardIndex === pile.length - 1) {
-        card.flip();
-      }
-    } else {
-      // Try to move to foundation
-      for (let i = 0; i < game.foundations.length; i++) {
-        if (canMoveToFoundation(card, game.foundations[i])) {
-          moveCard(pile, game.foundations[i], cardIndex);
-          break;
+        if (cardIndex === pile.length - 1) {
+            card.flip();
+            updateGameBoard(game);
         }
-      }
-      
-      // Try to move to another tableau pile
-      for (let i = 0; i < game.tableau.length; i++) {
-        if (i !== pileIndex && canMoveToTableau(card, game.tableau[i])) {
-          moveCard(pile, game.tableau[i], cardIndex);
-          break;
-        }
-      }
+        return;
     }
-    
-    updateGameBoard(game);
-    checkWinCondition(game);
-  }
-function handleFoundationCardClick(pileIndex) {
-    const foundation = game.foundations[pileIndex];
-    if (foundation.length > 0) {
+
+    // Move to foundation only if it's the top card
+    if (cardIndex === pile.length - 1) {
+        for (let i = 0; i < game.foundations.length; i++) {
+            if (canMoveToFoundation(card, game.foundations[i])) {
+                moveCard(pile, game.foundations[i], cardIndex);
+                updateGameBoard(game);
+                checkWinCondition(game);
+                return;
+            }
+        }
+    }
+
+    // Move to another tableau pile if it's a valid sequence
+    const cardsToMove = pile.slice(cardIndex);
+    for (let i = 0; i < game.tableau.length; i++) {
+        if (i !== pileIndex && canMoveToTableau(cardsToMove[0], game.tableau[i])) {
+            moveCards(pile, game.tableau[i], cardIndex);
+            updateGameBoard(game);
+            return;
+        }
+    }
+}
+
+function moveCards(fromPile, toPile, startIndex) {
+    const movedCards = fromPile.splice(startIndex);
+    toPile.push(...movedCards);
+    if (fromPile.length > 0 && !fromPile[fromPile.length - 1].faceUp) {
+        fromPile[fromPile.length - 1].flip();
+    }
+}
+
+function handleFoundationClick(game, pileIndex) {  
+    const foundation = game.foundations[pileIndex];  
+    if (foundation && foundation.length > 0) {  
         const card = foundation[foundation.length - 1];
         for (let i = 0; i < game.tableau.length; i++) {
             if (canMoveToTableau(card, game.tableau[i])) {
-                moveCard(foundation, game.tableau[i], foundation.length -1);
+                moveCard(foundation, game.tableau[i], foundation.length - 1);
                 updateGameBoard(game);
                 break;
             }
